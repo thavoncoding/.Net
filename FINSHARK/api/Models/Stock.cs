@@ -1,6 +1,6 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
-
+using api.Dtos.Stock;
 namespace api.Models
 {
     public class Stock
@@ -16,5 +16,21 @@ namespace api.Models
         public long MarketCap { get; set; }
 
         public List<Comment> Comments { get; set; } = new List<Comment>();
+
+        public StockDto ToStockDto()
+        {
+            return new StockDto
+            {
+                Id = Id,
+                Symbol = Symbol,
+                CompanyName = CompanyName,
+                Purchase = Purchase,
+                LastDiv = LastDiv,
+                Industry = Industry,
+                MarketCap = MarketCap
+                // If you want to include comments, you'd map them here as well
+                // Comments = Comments.Select(c => c.ToCommentDto()).ToList() // Assuming you have a ToCommentDto() for Comment model
+            };
+        }
     }   
 }
